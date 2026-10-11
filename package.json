@@ -1,0 +1,33 @@
+{
+  "name": "vscms-local",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static VSCMS operations app with browser-local IndexedDB persistence, deployable to GitHub Pages.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test tests/localPersistence.test.ts"
+  },
+  "dependencies": {
+    "lucide-react": "0.469.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "7.18.4",
+    "recharts": "2.15.4"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "@vitejs/plugin-react": "5.2.0",
+    "autoprefixer": "10.6.1",
+    "fake-indexeddb": "6.2.5",
+    "postcss": "8.5.29",
+    "tailwindcss": "3.4.19",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

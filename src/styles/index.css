@@ -1,0 +1,435 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'tnum';
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Tabular figures keep money and counters aligned in dense tables. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand/60 ring-offset-1 ring-offset-canvas;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-[3px] border-solid border-transparent bg-line-strong/70 bg-clip-content;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-faint/70;
+  }
+}
+
+@layer components {
+  /* ---------- surfaces ---------- */
+  .surface {
+    @apply rounded-card border border-line bg-surface shadow-card;
+  }
+
+  .surface-flat {
+    @apply rounded-card border border-line bg-surface;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between gap-3 border-b border-line px-4 py-3;
+  }
+
+  .panel-title {
+    @apply text-[15px] font-semibold tracking-[-0.01em] text-ink;
+  }
+
+  .panel-subtitle {
+    @apply text-xs text-ink-muted;
+  }
+
+  .eyebrow {
+    @apply text-2xs font-semibold uppercase tracking-[0.14em] text-ink-faint;
+  }
+
+  /* ---------- typography ---------- */
+  .page-title {
+    @apply text-[28px] font-semibold leading-tight tracking-[-0.02em] text-ink;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold tracking-[-0.01em] text-ink;
+  }
+
+  .card-label {
+    @apply text-xs font-semibold uppercase tracking-[0.08em] text-ink-muted;
+  }
+
+  .metric-value {
+    @apply text-[26px] font-semibold leading-none tracking-[-0.02em] text-ink tnum;
+  }
+
+  /* ---------- controls ---------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-btn border
+           px-3 py-1.5 text-[13px] font-medium transition-colors duration-100
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn border-brand bg-brand text-white hover:bg-brand-deep hover:border-brand-deep;
+  }
+
+  .btn-accent {
+    @apply btn border-accent bg-accent text-white hover:bg-accent-deep hover:border-accent-deep;
+  }
+
+  .btn-secondary {
+    @apply btn border-line bg-surface text-ink hover:border-line-strong hover:bg-canvas;
+  }
+
+  .btn-ghost {
+    @apply btn border-transparent bg-transparent text-ink-muted hover:bg-canvas hover:text-ink;
+  }
+
+  .btn-danger {
+    @apply btn border-danger bg-danger text-white hover:brightness-95;
+  }
+
+  .btn-sm {
+    @apply px-2 py-1 text-xs;
+  }
+
+  .input {
+    @apply w-full rounded-input border border-line bg-surface px-2.5 py-1.5 text-[13px] text-ink
+           placeholder:text-ink-faint transition-colors
+           hover:border-line-strong focus:border-brand focus:outline-none focus:ring-2
+           focus:ring-brand/25 disabled:cursor-not-allowed disabled:bg-canvas disabled:text-ink-muted;
+  }
+
+  .select {
+    @apply input appearance-none bg-[length:14px] bg-[right_0.5rem_center] bg-no-repeat pr-7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  .label {
+    @apply mb-1 block text-xs font-medium text-ink-muted;
+  }
+
+  .label-required::after {
+    content: ' *';
+    @apply text-danger;
+  }
+
+  /* ---------- data table ---------- */
+  .table-shell {
+    @apply overflow-hidden rounded-table border border-line bg-surface;
+  }
+
+  .table-scroll {
+    @apply overflow-x-auto;
+  }
+
+  table.data {
+    @apply w-full border-collapse text-left text-[13px];
+  }
+
+  table.data thead th {
+    @apply sticky top-0 z-10 whitespace-nowrap border-b border-line bg-canvas px-3 py-2
+           text-2xs font-semibold uppercase tracking-[0.06em] text-ink-muted;
+  }
+
+  table.data tbody td {
+    @apply whitespace-nowrap border-b border-line-soft px-3 py-2 align-middle text-ink;
+  }
+
+  table.data tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  table.data tbody tr {
+    @apply transition-colors duration-75;
+  }
+
+  table.data tbody tr:hover {
+    @apply bg-canvas/70;
+  }
+
+  table.data tbody tr[data-clickable='true'] {
+    @apply cursor-pointer;
+  }
+
+  table.data tbody tr[data-selected='true'] {
+    @apply bg-brand-soft/60;
+  }
+
+  .th-sortable {
+    @apply cursor-pointer select-none hover:text-ink;
+  }
+
+  /* ---------- misc ---------- */
+  .divider {
+    @apply border-t border-line;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-btn border border-line bg-canvas px-1.5 py-0.5
+           text-2xs font-medium text-ink-muted;
+  }
+
+  .link {
+    @apply text-brand underline-offset-2 hover:underline;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-btn bg-line-soft;
+  }
+
+  .skeleton::after {
+    @apply absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent;
+    content: '';
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* ---------- VSCMS startup / loading screen ---------- */
+.vscms-loading {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: 24px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.07), transparent 48%), #f4f6f8;
+  color: #17212b;
+}
+
+.vscms-loading::before {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(14, 36, 51, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 36, 51, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  content: '';
+  mask-image: linear-gradient(to bottom, #000, transparent 85%);
+  pointer-events: none;
+}
+
+.loading-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 400px);
+  border: 1px solid #e0e6eb;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 33px 34px 29px;
+  text-align: center;
+  box-shadow: 0 18px 54px rgba(14, 36, 51, 0.09), 0 2px 6px rgba(14, 36, 51, 0.035);
+  animation: loading-card-enter 400ms ease-out both;
+}
+
+.loading-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #0e2433;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.loading-brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 9px;
+  background: #0e2433;
+  color: #f28c28;
+}
+
+.loading-card h1 {
+  margin: 21px 0 5px;
+  color: #17212b;
+  font-size: 23px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1.25;
+}
+
+.loading-subtitle {
+  margin: 0;
+  color: #718093;
+  font-size: 12px;
+}
+
+.loading-road {
+  position: relative;
+  width: min(100%, 310px);
+  height: 40px;
+  margin: 26px auto 5px;
+}
+
+.loading-road-track {
+  position: absolute;
+  top: 23px;
+  right: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: #e5ebef;
+}
+
+.loading-road-dashes {
+  position: absolute;
+  top: 24px;
+  right: 8px;
+  left: 8px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #b8c4cd 0 9px, transparent 9px 18px);
+}
+
+.loading-car {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 31px;
+  font-size: 26px;
+  line-height: 31px;
+  text-align: center;
+  animation: loading-car-drive 2.2s linear infinite;
+  will-change: left, transform, opacity;
+}
+
+.loading-status {
+  display: inline-flex;
+  min-height: 18px;
+  align-items: center;
+  gap: 7px;
+  margin: 5px 0 0;
+  color: #526474;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.loading-status::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f28c28;
+  content: '';
+  animation: loading-status-pulse 1.25s ease-in-out infinite;
+}
+
+.loading-credit {
+  position: fixed;
+  z-index: 2;
+  right: 18px;
+  bottom: 15px;
+  border: 1px solid rgba(14, 36, 51, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 8px 12px;
+  color: #718093;
+  font-size: 10px;
+  box-shadow: 0 4px 14px rgba(14, 36, 51, 0.06);
+}
+
+.loading-credit strong {
+  color: #0e2433;
+  font-weight: 750;
+}
+
+@keyframes loading-car-drive {
+  0% { left: 100%; transform: translateX(-100%); opacity: 0; }
+  6% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 0; transform: translateX(0); opacity: 0; }
+}
+
+@keyframes loading-status-pulse {
+  50% { opacity: 0.35; }
+}
+
+@keyframes loading-card-enter {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .vscms-loading { padding: 18px 16px 64px; }
+  .loading-card { padding: 29px 22px 25px; }
+  .loading-card h1 { font-size: 21px; }
+  .loading-credit { right: 12px; bottom: 10px; padding: 7px 10px; font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-card { animation: none; }
+  .loading-car { left: 50%; transform: translateX(-50%); animation: none; }
+  .loading-status::before { animation: none; }
+}
+
+/* ---------- print: the invoice detail screen ---------- */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  body {
+    @apply bg-white;
+  }
+
+  .no-print,
+  aside,
+  header.app-topbar,
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-area {
+    position: absolute !important;
+    inset: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+  }
+
+  .print-plain {
+    @apply border-0 shadow-none;
+  }
+
+  .surface,
+  .surface-flat,
+  .table-shell {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+}

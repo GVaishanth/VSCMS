@@ -1,0 +1,1 @@
+import { Panel } from '../common/Panel'; import { RevenueTrendChart } from '../charts/RevenueTrendChart'; export function RevenuePanel({data=[] as any[],loading=false}:{data?:any[];loading?:boolean}){return <Panel title="Revenue trend" subtitle="Invoice revenue by month">{loading?<div className="skeleton h-52"/>:<RevenueTrendChart data={data} height={230}/>}</Panel>}

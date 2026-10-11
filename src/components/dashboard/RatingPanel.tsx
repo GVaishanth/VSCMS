@@ -1,0 +1,1 @@
+import { Panel } from '../common/Panel'; import { RatingBars } from '../charts/RatingBars'; export function RatingPanel({data=[] as any[],loading=false}:{data?:any[];loading?:boolean}){return <Panel title="Customer ratings" subtitle="Feedback distribution">{loading?<div className="skeleton h-52"/>:<RatingBars distribution={data}/>}</Panel>}
